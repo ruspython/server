@@ -1,5 +1,8 @@
 import pymysql
+import hashlib
+import json
 from exceptions import UserAlreadyeExists, InvalidValue
+
 
 
 SYMBOLS = ('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
@@ -44,7 +47,7 @@ def register(nickname, passwd, **kwargs):
     cursor = conn.cursor()
 
     args = {}
-    args['password'] = passwd
+    args['password'] = hashlib.md5(bytes(passwd, 'utf-8')).hexdigest()
     if is_name_correct(nickname):
         args['nickname'] = nickname
 
@@ -64,5 +67,16 @@ def register(nickname, passwd, **kwargs):
     conn.close()
 
 
+def json_valid(js):
+    if 'password' in js and 'nickname' in js:
+        return True
+    return False
+
+
 if __name__ == '__main__':
-    register('stepanych2', passwd='der_parol', first_name='Ivan2', last_name='Ftoroe2', hren='tot2')
+    f = open('file.json')
+    json_obj = json.load(f)
+    print(json_valid(json_obj))
+    reg_nickname = json_obj['nickname']
+    reg_password = json_obj['password']
+    register('admin', passwd='der_parol')
