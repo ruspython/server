@@ -45,7 +45,7 @@ def surround_quotes(the_list):
 
 
 def register(nickname, passwd, **kwargs):
-    conn = pymysql.connect(host='127.0.0.1', unix_socket='/tmp/mysql.sock', user='root', passwd=None, db='messenger')
+    conn = pymysql.connect(host='127.0.0.1', unix_socket='/tmp/mysql.sock', user='root', passwd="ajtdmw", db='messenger')
     cursor = conn.cursor()
 
     args = {}
