@@ -8,11 +8,11 @@ def main():
     sock = socket.socket()
     while True:
 
-        sock.connect(('178.62.237.133', 6666))
+        sock.connect(('178.62.237.133', 7777))
         f = open('file.json')
         json_obj = json.load(f)
 
-        sock.send(bytes(json_obj, 'UTF-8'))
+        sock.send(bytes(str(json_obj), 'UTF-8'))
 
         data = sock.recv(1024)
         sock.close()

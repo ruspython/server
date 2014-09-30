@@ -1,6 +1,8 @@
 import pymysql
 import hashlib
 import json
+import socket
+import time
 from exceptions import UserAlreadyeExists, InvalidValue
 
 
@@ -79,4 +81,27 @@ if __name__ == '__main__':
     print(json_valid(json_obj))
     reg_nickname = json_obj['nickname']
     reg_password = json_obj['password']
-    register('admin', passwd='der_parol')
+
+    print('Free registration')
+    sock = socket.socket()
+    sock.bind(('178.62.237.133', 7777))
+    sock.listen(1)
+
+    while True:
+        try:
+            conn, addr = sock.accept()
+
+            print('What does that man want -> ?', addr)
+
+            while True:
+                time.sleep(1)
+                data = conn.recv(1024)
+                time.sleep(1)
+                if not data:
+                    break
+                print(data)
+                if json_valid(data):
+                    register(data['user'], passwd=data['password'])
+            time.sleep(1)
+        finally:
+            conn.close()
