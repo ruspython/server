@@ -6,7 +6,7 @@ import socket
 def main():
     print(socket.gethostname())
     sock = socket.socket()
-    sock.bind(('' ,6677))
+    sock.bind(('178.62.237.133', 6666))
     sock.listen(1)
 
     while True:
