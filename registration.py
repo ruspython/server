@@ -100,6 +100,7 @@ if __name__ == '__main__':
                 if not data:
                     break
                 data = data.decode('utf-8')
+                data = json.load(data)
                 if json_valid(data):
                     register(data['user'], passwd=data['password'])
             time.sleep(1)
