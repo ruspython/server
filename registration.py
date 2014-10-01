@@ -76,12 +76,6 @@ def json_valid(js):
 
 
 if __name__ == '__main__':
-    f = open('file.json')
-    json_obj = json.load(f)
-    print(json_valid(json_obj))
-    reg_nickname = json_obj['nickname']
-    reg_password = json_obj['password']
-
     print('Free registration')
     sock = socket.socket()
     sock.bind(('178.62.237.133', 7777))
@@ -100,7 +94,12 @@ if __name__ == '__main__':
                 if not data:
                     break
                 data = data.decode('utf-8')
-                data = json.load(data)
+                f = open('file.json', 'w')
+                f.write(data)
+                f.close()
+                f = open('file.json', 'r')
+                data = json.load(f.read())
+                f.close()
                 if json_valid(data):
                     register(data['user'], passwd=data['password'])
             time.sleep(1)
