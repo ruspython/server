@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import socket
+from socket import error as SocketError
 
 
 def main():
@@ -21,8 +22,10 @@ def main():
                     break
                 print('%s: %s' % (addr, data.decode('UTF-8')))
                 conn.send(data)
-        finally:
-            conn.close()
+                conn.close()
+        except SocketError:
+            pass
+
 
 
 if __name__ == '__main__':
