@@ -62,6 +62,7 @@ def main():
 
                 client_sock.bind((HOST, port))
                 client_sock.listen(5)
+                print('sending...')
                 while True:
                     send_message(data['massage'], port)
 
