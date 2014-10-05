@@ -53,8 +53,9 @@ def main():
                                        passwd="ajtdmw", db='messenger')
 
                 cursor = conn.cursor()
-                request = 'select port from users where user_id=%s' % data['id']
 
+                request = 'select port from users where user_id=%d' % int(data['id'])
+                print('request', request)
                 cursor.execute(request)
                 port = [port for port in cursor][0]
                 print('port:', port)
