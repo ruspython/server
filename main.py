@@ -69,6 +69,7 @@ def main():
             pass
         except:
             client_sock.close()
+            exit()
 
 
 if __name__ == '__main__':
