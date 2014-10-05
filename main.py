@@ -41,7 +41,7 @@ def main():
                 f.write(data)
                 f.close()
                 f = open('file.json', 'r')
-
+                print('data', data)
                 try:
                     data = json.load(f)
                 except ValueError:
@@ -51,6 +51,7 @@ def main():
                 print('data:', data)
                 conn = pymysql.connect(host='localhost', unix_socket='/var/run/mysqld/mysqld.sock', user='root',
                                        passwd="ajtdmw", db='messenger')
+
                 cursor = conn.cursor()
                 request = 'select port from users where id=%s' % data['id']
                 cursor.execute(request)
@@ -65,8 +66,10 @@ def main():
                 print('%s: %s' % (addr, data.decode('UTF-8')))
                 conn.send(data)
         except SocketError:
+            print('SocketError')
             pass
         except:
+            print('except')
             conn.close()
             client_sock.close()
             exit()
