@@ -4,6 +4,7 @@ import socket
 from socket import error as SocketError
 import json
 import pymysql
+import threading
 
 
 HOST = '178.62.237.133'
@@ -22,7 +23,7 @@ def main():
     sock = socket.socket()
     client_sock = socket.socket()
     sock.bind((HOST, 6666))
-    sock.listen(3)
+    sock.listen(13)
 
     while True:
         try:
@@ -61,9 +62,14 @@ def main():
                 print('port:', port)
 
                 client_sock.bind((HOST, int(port)))
-                client_sock.listen(5)
+                client_sock.listen(15)
                 print('sending...')
                 while True:
+                    conn_c, addr_c = client_sock.accept()
+                    print(conn_c, addr_c)
+                    client_sock.recv(1024)
+                    th = threading.Thread(target=send_message, args={'message':data['message'], 'port': port})
+                    th.start()
                     send_message(data['message']+'\n', port)
 
                 print('%s: %s' % (addr, data.decode('UTF-8')))
