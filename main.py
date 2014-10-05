@@ -68,8 +68,8 @@ def main():
         except SocketError:
             print('SocketError')
             pass
-        except:
-            print('except')
+        except Exception as e:
+            print('except', e)
             conn.close()
             client_sock.close()
             exit()
