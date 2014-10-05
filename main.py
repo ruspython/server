@@ -57,7 +57,7 @@ def main():
                 request = 'select port from users where user_id=%d' % int(data['id'])
                 print('request', request)
                 cursor.execute(request)
-                port = [port for port in cursor][0]
+                port = [port for port in cursor]
                 print('port:', port)
 
                 client_sock.bind((HOST, port))
@@ -70,11 +70,11 @@ def main():
         except SocketError:
             print('SocketError')
             pass
-        except Exception as e:
-            print('except', e)
-            conn.close()
-            client_sock.close()
-            exit()
+        # except Exception as e:
+        #     print('except', e)
+        #     conn.close()
+        #     client_sock.close()
+        #     exit()
 
 
 if __name__ == '__main__':
