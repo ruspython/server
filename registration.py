@@ -45,7 +45,8 @@ def surround_quotes(the_list):
 
 
 def register(nickname, passwd, **kwargs):
-    conn = pymysql.connect(host='localhost', unix_socket='/tmp/mysql.sock', user='root', passwd="ajtdmw", db='messenger')
+    conn = pymysql.connect(host='localhost', unix_socket='/var/run/mysqld/mysqld.sock', user='root', passwd="ajtdmw", db='messenger')
+
     cursor = conn.cursor()
 
     args = {}
@@ -101,7 +102,7 @@ if __name__ == '__main__':
                 data = json.load(f)
                 f.close()
                 if json_valid(data):
-                    register(data['user'], passwd=data['password'])
+                    register(data['nickname'], passwd=data['password'])
             time.sleep(1)
         finally:
             conn.close()
