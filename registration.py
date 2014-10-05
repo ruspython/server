@@ -79,7 +79,7 @@ if __name__ == '__main__':
     print('Free registration')
     sock = socket.socket()
     sock.bind(('178.62.237.133', 7777))
-    sock.listen(1)
+    sock.listen(3)
 
     while True:
         try:
