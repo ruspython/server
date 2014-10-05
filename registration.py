@@ -61,10 +61,12 @@ def register(nickname, passwd, kwargs):
 
     cursor.execute('select port from users');
     print([port for port in cursor])
+
     notallowed_ports = [port for port in cursor]
     for port in POSSIBLE_PORTS:
         if port not in notallowed_ports:
             args['port'] = port
+            print('port', args['port'])
             break
 
     fields = ', '.join(args.keys())
