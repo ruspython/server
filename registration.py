@@ -55,6 +55,7 @@ def register(nickname, passwd, addr, kwargs):
     if is_name_correct(nickname):
         args['nickname'] = nickname
     args['address'] = addr
+    print(addr)
     for key in kwargs:
         if is_name_correct(kwargs[key]) and key in POSSIBLE_FIELDS:
             args[key] = kwargs[key]
@@ -117,7 +118,7 @@ if __name__ == '__main__':
                 finally:
                     f.close()
                 if json_valid(data):
-                    register(nickname=data['nickname'], passwd=data['password'], addr=addr, kwargs=data)
+                    register(nickname=data['nickname'], passwd=data['password'], addr=addr[0], kwargs=data)
             time.sleep(1)
         except SocketError:
             pass
