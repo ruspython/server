@@ -57,7 +57,7 @@ def main():
                 request = 'select port from users where user_id=%d' % int(data['id'])
                 print('request', request)
                 cursor.execute(request)
-                port = [port for port in cursor]
+                port = [port for port in cursor][0][0]
                 print('port:', port)
 
                 client_sock.bind((HOST, port))
