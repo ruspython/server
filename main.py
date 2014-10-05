@@ -8,7 +8,7 @@ def main():
     print(socket.gethostname())
     sock = socket.socket()
     sock.bind(('178.62.237.133', 6666))
-    sock.listen(1)
+    sock.listen(2)
 
     while True:
         try:

@@ -85,7 +85,7 @@ if __name__ == '__main__':
         try:
             conn, addr = sock.accept()
 
-            print('What does that man want -> ?', addr)
+            print('What does that man want -> ', addr)
 
             while True:
                 time.sleep(1)
