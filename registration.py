@@ -45,7 +45,7 @@ def surround_quotes(the_list):
     return new_list
 
 
-def register(nickname, passwd, kwargs):
+def register(nickname, passwd, addr, kwargs):
     conn = pymysql.connect(host='localhost', unix_socket='/var/run/mysqld/mysqld.sock', user='root', passwd="ajtdmw", db='messenger')
 
     cursor = conn.cursor()
@@ -54,7 +54,7 @@ def register(nickname, passwd, kwargs):
     args['password'] = hashlib.md5(bytes(passwd, 'utf-8')).hexdigest()
     if is_name_correct(nickname):
         args['nickname'] = nickname
-
+    args['address'] = addr
     for key in kwargs:
         if is_name_correct(kwargs[key]) and key in POSSIBLE_FIELDS:
             args[key] = kwargs[key]
@@ -117,7 +117,7 @@ if __name__ == '__main__':
                 finally:
                     f.close()
                 if json_valid(data):
-                    register(nickname=data['nickname'], passwd=data['password'], kwargs=data)
+                    register(nickname=data['nickname'], passwd=data['password'], addr=addr, kwargs=data)
             time.sleep(1)
         except SocketError:
             pass
