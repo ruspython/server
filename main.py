@@ -64,7 +64,7 @@ def main():
                 client_sock.listen(5)
                 print('sending...')
                 while True:
-                    send_message(data['message'], port)
+                    send_message(data['message']+'\n', port)
 
                 print('%s: %s' % (addr, data.decode('UTF-8')))
                 conn.send(data)
