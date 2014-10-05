@@ -20,6 +20,7 @@ def send_message(message, port):
 def main():
     print(socket.gethostname())
     sock = socket.socket()
+    client_sock = socket.socket()
     sock.bind((HOST, 6666))
     sock.listen(3)
 
@@ -52,7 +53,7 @@ def main():
                 cursor = conn.cursor()
                 cursor.execute('select port from users where id=%s' % data['id'])
                 port = [port for port in cursor][0]
-                client_sock = socket.socket()
+
                 client_sock.bind((HOST, port))
                 client_sock.listen(5)
 
@@ -61,9 +62,11 @@ def main():
                 print('%s: %s' % (addr, data.decode('UTF-8')))
                 conn.send(data)
                 conn.close()
-                client_sock.close()
+                #client_sock.close()
         except SocketError:
             pass
+        except:
+            client_sock.close()
 
 
 if __name__ == '__main__':
