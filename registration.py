@@ -17,7 +17,7 @@ SYMBOLS = ('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
            '2', '3', '4', '5', '6', '7', '8', '9',)
 
 POSSIBLE_FIELDS = ('nickname', 'first_name', 'last_name', 'age',)
-POSSIBLE_PORTS = (port for port in range(1000, 2000))
+POSSIBLE_PORTS = (port for port in range(10000, 11000))
 
 def is_user_exists(id):
     conn = pymysql.connect(host='127.0.0.1', unix_socket='/tmp/mysql.sock', user='root', passwd=None, db='messenger')
