@@ -107,7 +107,7 @@ if __name__ == '__main__':
                 finally:
                     f.close()
                 if json_valid(data):
-                    register(data['nickname'], passwd=data['password'])
+                    register(data['nickname'], passwd=data['password'], **data)
             time.sleep(1)
         except SocketError:
             pass
