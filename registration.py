@@ -17,7 +17,7 @@ SYMBOLS = ('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
            '2', '3', '4', '5', '6', '7', '8', '9',)
 
 POSSIBLE_FIELDS = ('nickname', 'first_name', 'last_name', 'age',)
-
+POSSIBLE_PORTS = (port for port in range(1000, 2000))
 
 def is_user_exists(id):
     conn = pymysql.connect(host='127.0.0.1', unix_socket='/tmp/mysql.sock', user='root', passwd=None, db='messenger')
@@ -58,6 +58,14 @@ def register(nickname, passwd, kwargs):
     for key in kwargs:
         if is_name_correct(kwargs[key]) and key in POSSIBLE_FIELDS:
             args[key] = kwargs[key]
+
+    cursor.execute('select port from users');
+    print([port for port in cursor])
+    notallowed_ports = [port for port in cursor]
+    for port in POSSIBLE_PORTS:
+        if port not in notallowed_ports:
+            args['port'] = port
+            break
 
     fields = ', '.join(args.keys())
     values = ','.join(surround_quotes(args.values()))
