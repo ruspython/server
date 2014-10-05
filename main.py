@@ -68,8 +68,8 @@ def main():
 
                 print('%s: %s' % (addr, data.decode('UTF-8')))
                 conn.send(data)
-        except SocketError:
-            print('SocketError')
+        except SocketError as e:
+            print('SocketError', e)
             pass
         # except Exception as e:
         #     print('except', e)
