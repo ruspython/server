@@ -32,6 +32,7 @@ def main():
 
             while True:
                 data = conn.recv(1024)
+                print('data:', data)
                 if not data:
                     break
 
@@ -47,7 +48,7 @@ def main():
                     break
                 finally:
                     f.close()
-                print(data)
+                print('data:', data)
                 conn = pymysql.connect(host='localhost', unix_socket='/var/run/mysqld/mysqld.sock', user='root',
                                        passwd="ajtdmw", db='messenger')
                 cursor = conn.cursor()
@@ -63,11 +64,10 @@ def main():
 
                 print('%s: %s' % (addr, data.decode('UTF-8')))
                 conn.send(data)
-                conn.close()
-                #client_sock.close()
         except SocketError:
             pass
         except:
+            conn.close()
             client_sock.close()
             exit()
 
