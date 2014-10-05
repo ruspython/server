@@ -47,12 +47,14 @@ def main():
                     break
                 finally:
                     f.close()
-
+                print(data)
                 conn = pymysql.connect(host='localhost', unix_socket='/var/run/mysqld/mysqld.sock', user='root',
                                        passwd="ajtdmw", db='messenger')
                 cursor = conn.cursor()
-                cursor.execute('select port from users where id=%s' % data['id'])
+                request = 'select port from users where id=%s' % data['id']
+                cursor.execute(request)
                 port = [port for port in cursor][0]
+                print('port:', port)
 
                 client_sock.bind((HOST, port))
                 client_sock.listen(5)
