@@ -13,6 +13,7 @@ def send_message(message, port):
     sock = socket.socket()
     sock.connect((HOST, int(port)))
     sock.send(bytes(str(message), 'UTF-8'))
+    print('sent!')
     sock.close()
 
 
