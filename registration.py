@@ -101,9 +101,9 @@ if __name__ == '__main__':
             print('What does that man want -> ', addr)
 
             while True:
-                time.sleep(1)
+                #time.sleep(1)
                 data = conn.recv(1024)
-                time.sleep(1)
+                #time.sleep(1)
                 if not data:
                     break
                 data = data.decode('utf-8').replace('\'', '\"')
@@ -119,7 +119,7 @@ if __name__ == '__main__':
                     f.close()
                 if json_valid(data):
                     register(nickname=data['nickname'], passwd=data['password'], addr=addr[0], kwargs=data)
-            time.sleep(1)
+            #time.sleep(1)
         except SocketError:
             pass
         finally:

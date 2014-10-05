@@ -2,13 +2,26 @@
 # -*- coding: utf-8 -*-
 import socket
 from socket import error as SocketError
+import json
+import pymysql
+
+
+HOST = '178.62.237.133'
+
+
+def send_message(message, port):
+    sock = socket.socket()
+    sock.connect((HOST, int(port)))
+    sock.send(bytes(message), 'UTF-8')
+    data = sock.recv(1024)
+    sock.close()
 
 
 def main():
     print(socket.gethostname())
     sock = socket.socket()
-    sock.bind(('178.62.237.133', 6666))
-    sock.listen(2)
+    sock.bind((HOST, 6666))
+    sock.listen(3)
 
     while True:
         try:
@@ -20,12 +33,33 @@ def main():
                 data = conn.recv(1024)
                 if not data:
                     break
+
+                data = data.decode('utf-8').replace('\'', '\"')
+                f = open('file.json', 'w')
+                f.write(data)
+                f.close()
+                f = open('file.json', 'r')
+
+                try:
+                    data = json.load(f)
+                except ValueError:
+                    break
+                finally:
+                    f.close()
+
+                conn = pymysql.connect(host='localhost', unix_socket='/var/run/mysqld/mysqld.sock', user='root',
+                                       passwd="ajtdmw", db='messenger')
+                cursor = conn.cursor()
+                cursor.execute('select port from users where id=%s' % data['id'])
+                port = [port for port in cursor][0]
+
+                send_message(data['massage'], port)
+
                 print('%s: %s' % (addr, data.decode('UTF-8')))
                 conn.send(data)
                 conn.close()
         except SocketError:
             pass
-
 
 
 if __name__ == '__main__':
