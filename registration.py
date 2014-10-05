@@ -3,6 +3,7 @@ import hashlib
 import json
 import socket
 import time
+from socket import error as SocketError
 from exceptions import UserAlreadyeExists, InvalidValue
 
 
@@ -104,5 +105,7 @@ if __name__ == '__main__':
                 if json_valid(data):
                     register(data['nickname'], passwd=data['password'])
             time.sleep(1)
+        except SocketError:
+            pass
         finally:
             conn.close()
