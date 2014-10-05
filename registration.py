@@ -100,8 +100,12 @@ if __name__ == '__main__':
                 f.write(data)
                 f.close()
                 f = open('file.json', 'r')
-                data = json.load(f)
-                f.close()
+                try:
+                    data = json.load(f)
+                except ValueError:
+                    break
+                finally:
+                    f.close()
                 if json_valid(data):
                     register(data['nickname'], passwd=data['password'])
             time.sleep(1)
