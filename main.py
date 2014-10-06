@@ -72,7 +72,11 @@ def main():
                     send_message(data['message']+'\n', port)
                     print('after sending')
                     time.sleep(1)
-                    client_sock.recv(1024)
+                    while True:
+                        try:
+                            client_sock.recv(1024)
+                        except SocketError:
+                            pass
                     print('after while')
 
                 print('%s: %s' % (addr, data.decode('UTF-8')))
