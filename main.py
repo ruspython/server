@@ -4,6 +4,7 @@ import socket
 from socket import error as SocketError
 import json
 import pymysql
+import time
 import threading
 
 
@@ -67,8 +68,10 @@ def main():
                 while True:
                     conn_c, addr_c = client_sock.accept()
                     print(conn_c, addr_c)
-                    client_sock.recv(1024)
+                    print('before sending')
                     send_message(data['message']+'\n', port)
+                    print('after sending')
+                    time.sleep(1)
                     client_sock.recv(1024)
 
                 print('%s: %s' % (addr, data.decode('UTF-8')))
