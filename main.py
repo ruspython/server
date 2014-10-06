@@ -51,10 +51,10 @@ def main():
                 finally:
                     f.close()
                 print('data:', data)
-                conn = pymysql.connect(host='localhost', unix_socket='/var/run/mysqld/mysqld.sock', user='root',
+                conn_mysql = pymysql.connect(host='localhost', unix_socket='/var/run/mysqld/mysqld.sock', user='root',
                                        passwd="ajtdmw", db='messenger')
 
-                cursor = conn.cursor()
+                cursor = conn_mysql.cursor()
 
                 request = 'select port from users where user_id=%d' % int(data['id'])
                 print('request', request)
@@ -73,6 +73,7 @@ def main():
                     print('after sending')
                     time.sleep(1)
                     client_sock.recv(1024)
+                    print('after while')
 
                 print('%s: %s' % (addr, data.decode('UTF-8')))
                 conn.send(data)
