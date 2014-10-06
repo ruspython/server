@@ -67,21 +67,19 @@ def main():
                 while True:
                     conn_c, addr_c = client_sock.accept()
                     print(conn_c, addr_c)
+                    send_message(data['message'], port)
                     client_sock.recv(1024)
-                    th = threading.Thread(target=send_message, args={'message':data['message'], 'port': port})
-                    th.start()
-                    send_message(data['message']+'\n', port)
 
                 print('%s: %s' % (addr, data.decode('UTF-8')))
                 conn.send(data)
         except SocketError as e:
             print('SocketError', e)
             pass
-        # except Exception as e:
-        #     print('except', e)
-        #     conn.close()
-        #     client_sock.close()
-        #     exit()
+            # except Exception as e:
+            # print('except', e)
+            #     conn.close()
+            #     client_sock.close()
+            #     exit()
 
 
 if __name__ == '__main__':
