@@ -67,6 +67,7 @@ def main():
                 while True:
                     conn_c, addr_c = client_sock.accept()
                     print(conn_c, addr_c)
+                    client_sock.recv(1024)
                     send_message(data['message']+'\n', port)
                     client_sock.recv(1024)
 
