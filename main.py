@@ -15,7 +15,7 @@ def send_message(message, port):
     try:
         sock = socket.socket()
         port = int(port)
-        sock.connect((HOST, 10000))
+        sock.connect((HOST, port))
         print(message, port, HOST)
         sock.send(bytes(str(message), 'UTF-8'))
         print('sent: ', message, 'to port ', port)
