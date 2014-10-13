@@ -16,7 +16,7 @@ def send_message(message, port):
     sock.connect((HOST, int(port)))
     sock.send(bytes(str(message), 'UTF-8'))
     print('sent: ', message, 'to port ', port)
-    sock.close()
+    #sock.close()
 
 
 def main():
@@ -65,15 +65,15 @@ def main():
                 client_sock.bind((HOST, int(port)))
                 client_sock.listen(15)
                 print('sending...')
-                while True:
-                    conn_c, addr_c = client_sock.accept()
-                    print(conn_c, addr_c)
-                    print('before sending')
-                    send_message(data['message']+'\n', port)
-                    print('after sending')
-                    time.sleep(1)
-                    client_sock.recv(1024)
-                    print('after while')
+
+                conn_c, addr_c = client_sock.accept()
+                print(conn_c, addr_c)
+                print('before sending')
+                send_message(data+'\n', port)
+                print('after sending')
+                time.sleep(1)
+                client_sock.recv(1024)
+                print('after sending')
 
                 print('%s: %s' % (addr, data.decode('UTF-8')))
                 conn.send(data)
