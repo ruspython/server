@@ -82,7 +82,6 @@ def main():
                 print('after sending')
 
                 print(data)
-                conn.send(data)
         except SocketError as e:
             print('SocketError', e)
             pass
