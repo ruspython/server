@@ -12,12 +12,15 @@ HOST = '178.62.237.133'
 
 
 def send_message(message, port):
-    sock = socket.socket()
-    sock.connect((HOST, int(port)))
-    print('message')
-    sock.send(bytes(str(message), 'UTF-8'))
-    print('sent: ', message, 'to port ', port)
-    #sock.close()
+    try:
+        sock = socket.socket()
+        sock.connect((HOST, int(port)))
+        print('message')
+        sock.send(bytes(str(message), 'UTF-8'))
+        print('sent: ', message, 'to port ', port)
+        #sock.close()
+    except Exception as e:
+        print(e)
 
 
 def main():
