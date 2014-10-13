@@ -23,6 +23,7 @@ def main():
     print(socket.gethostname())
     sock = socket.socket()
     client_sock = socket.socket()
+    sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     sock.bind((HOST, 6666))
     sock.listen(13)
 
