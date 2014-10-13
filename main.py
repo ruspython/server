@@ -14,8 +14,9 @@ HOST = '178.62.237.133'
 def send_message(message, port):
     try:
         sock = socket.socket()
-        sock.connect((HOST, int(port)))
-        print(message, port)
+        port = int(port)
+        sock.connect((HOST, port))
+        print(message, port, HOST)
         sock.send(bytes(str(message), 'UTF-8'))
         print('sent: ', message, 'to port ', port)
         #sock.close()
