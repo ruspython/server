@@ -89,7 +89,8 @@ def main():
         except Exception as e:
             print('except', e)
             conn.close()
-            #client_sock.close()
+            client_sock.close()
+            sock.close()
             exit()
 
 
