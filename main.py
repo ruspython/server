@@ -38,7 +38,7 @@ def main():
 
             print('connected:', addr)
 
-        #-----------------------
+            #-----------------------
             data = conn.recv(1024)
             print('data:', data)
             if not data:
@@ -73,10 +73,10 @@ def main():
             client_sock.listen(15)
             print('sending...')
 
-            conn_c, addr_c = client_sock.accept()
-            print(conn_c, addr_c)
+            #print(conn_c, addr_c)
             print('before sending')
             send_message(data['message']+'\n', port)
+            conn_c, addr_c = client_sock.accept()
             print('after sending')
             time.sleep(1)
             #client_sock.recv(1024)
