@@ -38,51 +38,51 @@ def main():
 
             print('connected:', addr)
 
-            while True:
-                data = conn.recv(1024)
-                print('data:', data)
-                if not data:
-                    break
+        #-----------------------
+            data = conn.recv(1024)
+            print('data:', data)
+            if not data:
+                break
 
-                data = data.decode('utf-8').replace('\'', '\"')
-                f = open('file.json', 'w')
-                f.write(data)
+            data = data.decode('utf-8').replace('\'', '\"')
+            f = open('file.json', 'w')
+            f.write(data)
+            f.close()
+            f = open('file.json', 'r')
+            print('data', data)
+            try:
+                data = json.load(f)
+            except ValueError:
+                break
+            finally:
                 f.close()
-                f = open('file.json', 'r')
-                print('data', data)
-                try:
-                    data = json.load(f)
-                except ValueError:
-                    break
-                finally:
-                    f.close()
-                print('data:', data)
-                conn_mysql = pymysql.connect(host='localhost', unix_socket='/var/run/mysqld/mysqld.sock', user='root',
-                                       passwd="ajtdmw", db='messenger')
+            print('data:', data)
+            conn_mysql = pymysql.connect(host='localhost', unix_socket='/var/run/mysqld/mysqld.sock', user='root',
+                                   passwd="ajtdmw", db='messenger')
 
-                cursor = conn_mysql.cursor()
+            cursor = conn_mysql.cursor()
 
-                request = 'select port from users where user_id=%d' % int(data['id'])
-                print('request', request)
-                cursor.execute(request)
-                port = [port for port in cursor][0][0]
-                print('port:', port)
+            request = 'select port from users where user_id=%d' % int(data['id'])
+            print('request', request)
+            cursor.execute(request)
+            port = [port for port in cursor][0][0]
+            print('port:', port)
 
-                client_sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-                client_sock.bind((HOST, int(port)))
-                client_sock.listen(15)
-                print('sending...')
+            client_sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+            client_sock.bind((HOST, int(port)))
+            client_sock.listen(15)
+            print('sending...')
 
-                conn_c, addr_c = client_sock.accept()
-                print(conn_c, addr_c)
-                print('before sending')
-                send_message(data['message']+'\n', port)
-                print('after sending')
-                time.sleep(1)
-                #client_sock.recv(1024)
-                print('after sending')
+            conn_c, addr_c = client_sock.accept()
+            print(conn_c, addr_c)
+            print('before sending')
+            send_message(data['message']+'\n', port)
+            print('after sending')
+            time.sleep(1)
+            #client_sock.recv(1024)
+            print('after sending')
 
-                print(data)
+            print(data)
         except SocketError as e:
             print('SocketError', e)
             pass
