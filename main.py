@@ -88,7 +88,6 @@ def main():
             print('after sending')
             th = threading.Thread(target=send_message, args=({'message':data['message'], 'port': port}))
             th.start()
-            th.join()
             th2 = threading.Thread(target=do)
             th2.start()
             #client_sock.recv(1024)
