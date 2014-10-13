@@ -19,7 +19,7 @@ def send_message(message, port):
         print(message, port, HOST)
         sock.send(bytes(str(message), 'UTF-8'))
         print('sent: ', message, 'to port ', port)
-        #sock.close()
+        sock.close()
     except Exception as e:
         print(e)
 
