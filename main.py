@@ -81,7 +81,7 @@ def main():
                 #client_sock.recv(1024)
                 print('after sending')
 
-                print('%s: %s' % (addr, data.decode('UTF-8')))
+                print(data)
                 conn.send(data)
         except SocketError as e:
             print('SocketError', e)
