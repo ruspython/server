@@ -75,7 +75,7 @@ def main():
                 conn_c, addr_c = client_sock.accept()
                 print(conn_c, addr_c)
                 print('before sending')
-                send_message(data+'\n', port)
+                send_message(data['message']+'\n', port)
                 print('after sending')
                 time.sleep(1)
                 client_sock.recv(1024)
