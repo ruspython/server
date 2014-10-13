@@ -75,7 +75,7 @@ def main():
 
             #print(conn_c, addr_c)
             print('before sending')
-            #send_message(data['message']+'\n', port)
+            send_message(data['message']+'\n', port)
             time.sleep(1)
 
             def do():
@@ -86,10 +86,7 @@ def main():
                         print('connected:', addr_c)
 
             print('after sending')
-            th = threading.Thread(target=send_message, args=(data['message']+'\n', port))
-            th.start()
-            th2 = threading.Thread(target=do)
-            th2.start()
+
             #client_sock.recv(1024)
             print('after sending')
 
