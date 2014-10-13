@@ -78,6 +78,7 @@ def main():
                 send_message(data['message']+'\n', port)
                 print('after sending')
                 time.sleep(1)
+                client_sock.close()
                 #client_sock.recv(1024)
                 print('after sending')
 
@@ -88,7 +89,7 @@ def main():
         except Exception as e:
             print('except', e)
             conn.close()
-            client_sock.close()
+            #client_sock.close()
             exit()
 
 
