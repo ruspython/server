@@ -64,6 +64,7 @@ def main():
                 port = [port for port in cursor][0][0]
                 print('port:', port)
 
+                client_sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
                 client_sock.bind((HOST, int(port)))
                 client_sock.listen(15)
                 print('sending...')
