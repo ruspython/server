@@ -87,7 +87,7 @@ def main():
             print('SocketError', e)
             pass
         except Exception as e:
-            #print('except', e)
+            print('except', e)
             conn.close()
             client_sock.close()
             exit()
