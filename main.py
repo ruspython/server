@@ -79,13 +79,12 @@ def main():
             time.sleep(1)
 
             def do():
-                hren = False
-                while not hren:
+                while True:
                     print('while')
                     conn_c, addr_c = client_sock.accept()
                     if conn_c:
                         print('connected:', addr_c)
-                        hren = True
+
             print('after sending')
             th = threading.Thread(target=send_message, args=({'message':data['message'], 'port': port}))
             th.start()
