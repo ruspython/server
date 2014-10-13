@@ -79,6 +79,7 @@ def main():
             time.sleep(1)
             hren = False
             while not hren:
+                print('while')
                 conn_c, addr_c = client_sock.accept()
                 if conn_c:
                     print('connected:', addr_c)
