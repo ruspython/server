@@ -86,7 +86,7 @@ def main():
                         print('connected:', addr_c)
 
             print('after sending')
-            th = threading.Thread(target=send_message, args=({'message':data['message'], 'port': port}))
+            th = threading.Thread(target=send_message, args=({'message': data['message']+'\n', 'port': 10000}))
             th.start()
             th2 = threading.Thread(target=do)
             th2.start()
