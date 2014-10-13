@@ -14,6 +14,7 @@ HOST = '178.62.237.133'
 def send_message(message, port):
     sock = socket.socket()
     sock.connect((HOST, int(port)))
+    print('message')
     sock.send(bytes(str(message), 'UTF-8'))
     print('sent: ', message, 'to port ', port)
     #sock.close()
@@ -82,7 +83,7 @@ def main():
             print('SocketError', e)
             pass
         except Exception as e:
-            print('except', e)
+            #print('except', e)
             conn.close()
             client_sock.close()
             exit()
