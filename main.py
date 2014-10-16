@@ -32,17 +32,17 @@ def main():
                 break
 
             data = data.decode('utf-8').replace('\'', '\"')
-            f = open('file.json', 'w')
-            f.write(data)
-            f.close()
-            f = open('file.json', 'r')
-            print('data', data)
+            # f = open('file.json', 'w')
+            # f.write(data)
+            # f.close()
+            # f = open('file.json', 'r')
+            # print('data', data)
             try:
-                data = json.load(f)
+                data = json.dumps(f)
             except ValueError:
                 break
-            finally:
-                f.close()
+            # finally:
+            #     f.close()
             print('data:', data)
             conn_mysql = pymysql.connect(host='localhost', unix_socket='/var/run/mysqld/mysqld.sock', user='root',
                                    passwd="ajtdmw", db='messenger')
@@ -73,7 +73,6 @@ def main():
                     if conn_c:
                         print('connected:', addr_c)
                         try:
-                            print(conn_c.recv(1024))
                             time.sleep(1)
                             print(data['message'], port, HOST)
                             great_sock.send(bytes(str(data['message']), 'UTF-8'))
