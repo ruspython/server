@@ -58,7 +58,7 @@ def main():
             client_sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
             client_sock.bind((HOST, port))
             client_sock.listen(15)
-            client_sock.send(bytes(str(data['message']), 'UTF-8'))
+            client_sock.sendall(bytes(str(data['message']), 'UTF-8'))
             print('sending...')
 
             #print(conn_c, addr_c)
