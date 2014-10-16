@@ -75,7 +75,7 @@ def main():
 
             #print(conn_c, addr_c)
             print('before sending')
-
+            send_message(data['message']+'\n', port)
             time.sleep(1)
 
             def do():
@@ -84,8 +84,6 @@ def main():
                     conn_c, addr_c = client_sock.accept()
                     if conn_c:
                         print('connected:', addr_c)
-                        time.sleep(1)
-                        send_message(data['message']+'\n', port)
 
             th = threading.Thread(target=do)
             th.start()
