@@ -52,11 +52,11 @@ def main():
             request = 'select port from users where user_id=%d' % int(data['id'])
             print('request', request)
             cursor.execute(request)
-            port = [port for port in cursor][0][0]
+            port = int([port for port in cursor][0][0])
             print('port:', port)
 
             client_sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-            client_sock.bind((HOST, int(port)))
+            client_sock.bind((HOST, port))
             client_sock.listen(15)
             print('sending...')
 
@@ -65,7 +65,6 @@ def main():
 
             def do():
                 while True:
-                    port = 10000
                     print('while')
                     great_sock = socket.socket()
                     great_sock.connect((HOST, port))
@@ -73,10 +72,12 @@ def main():
                     if conn_c:
                         print('connected:', addr_c)
                         try:
-                            time.sleep(1)
                             print(data['message'], port, HOST)
                             great_sock.send(bytes(str(data['message']), 'UTF-8'))
+                            conn_c, addr_c = client_sock.accept()
+                            conn_c.recv(1024)
                             print('sent: ', data['message']+'\n', 'to port ', port)
+                            great_sock.close()
                         except Exception as e:
                             print(e)
 
