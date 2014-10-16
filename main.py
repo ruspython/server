@@ -61,9 +61,9 @@ def main():
             def do():
                 while True:
                     conn_c, addr_c = client_sock.accept()
-                    if not conn_c:
-                        client_sock.connect((HOST, port))
-                        client_sock.send(bytes(str(data['message']), 'UTF-8'))
+                    client_sock.connect((HOST, port))
+                    client_sock.send(bytes(str(data['message']), 'UTF-8'))
+                    conn_c.recv(1024)
 
             th = threading.Thread(target=do)
             th.start()
