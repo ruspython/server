@@ -79,7 +79,6 @@ def main():
 
 if __name__ == '__main__':
     main()
-    if __name__ == "__main__":
     PORT = 6666
 
     # Create the server, binding to localhost on port 9999
