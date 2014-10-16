@@ -62,33 +62,10 @@ def main():
                 while True:
                     conn_c, addr_c = client_sock.accept()
                     if not conn_c:
-                        client_sock.send(bytes(str(data['message']), 'UTF-8'))
+                        sock.send(bytes(str(data['message']), 'UTF-8'))
 
             th = threading.Thread(target=do)
             th.start()
-
-            print('sending...')
-
-            #print(conn_c, addr_c)
-            print('before sending')
-
-            # def do():
-            #     while True:
-            #         print('while')
-            #         great_sock = socket.socket()
-            #         great_sock.connect((HOST, port))
-            #         conn_c, addr_c = client_sock.accept()
-            #         if conn_c:
-            #             try:
-            #                 print(data['message'], port, HOST)
-            #                 great_sock.send(bytes(str(data['message']), 'UTF-8'))
-            #                 print('sent: ', data['message']+'\n', 'to port ', port)
-            #                 great_sock.close()
-            #             except Exception as e:
-            #                 print(e)
-            #
-            # th = threading.Thread(target=do)
-            # th.start()
 
         except SocketError as e:
             print('SocketError', e)
