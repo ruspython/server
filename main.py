@@ -11,19 +11,6 @@ import threading
 HOST = '178.62.237.133'
 
 
-def send_message(message, port):
-    try:
-        sock = socket.socket()
-        port = int(port)
-        sock.connect((HOST, port))
-        print(message, port, HOST)
-        sock.send(bytes(str(message), 'UTF-8'))
-        print('sent: ', message, 'to port ', port)
-        sock.close()
-    except Exception as e:
-        print(e)
-
-
 def main():
     print(socket.gethostname())
     sock = socket.socket()
@@ -75,15 +62,27 @@ def main():
 
             #print(conn_c, addr_c)
             print('before sending')
-            send_message(data['message']+'\n', port)
-            time.sleep(1)
 
             def do():
                 while True:
+                    port = 10000
                     print('while')
                     conn_c, addr_c = client_sock.accept()
                     if conn_c:
                         print('connected:', addr_c)
+                        #send_message(data['message']+'\n', port)
+                        try:
+                            great_sock = socket.socket()
+                            port = int(port)
+                            great_sock.connect((HOST, port))
+                            print(data['message'], port, HOST)
+                            great_sock.send(bytes(str(data['message']), 'UTF-8'))
+                            print('sent: ', data['message']+'\n', 'to port ', port)
+                            sock.close()
+                        except Exception as e:
+                            print(e)
+                        time.sleep(1)
+
 
             th = threading.Thread(target=do)
             th.start()
