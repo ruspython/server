@@ -10,6 +10,17 @@ import threading
 
 HOST = '178.62.237.133'
 
+import socketserver
+
+
+class MyTCPHandler(socketserver.BaseRequestHandler):
+    def handle(self):
+        self.data = self.request.recv(1024).strip()
+        print("{} wrote:".format(self.client_address[0]))
+        print(self.data)
+        # just send back the same data, but upper-cased
+        self.request.sendall(self.data.upper())
+
 
 def main():
     print(socket.gethostname())
@@ -27,7 +38,6 @@ def main():
 
             #-----------------------
             data = conn.recv(1024)
-            print('data:', data)
             if not data:
                 break
 
@@ -36,24 +46,20 @@ def main():
             f.write(data)
             f.close()
             f = open('file.json', 'r')
-            print('data', data)
             try:
                 data = json.load(f)
             except ValueError:
                 break
             finally:
                 f.close()
-            print('data:', data)
             conn_mysql = pymysql.connect(host='localhost', unix_socket='/var/run/mysqld/mysqld.sock', user='root',
                                    passwd="ajtdmw", db='messenger')
 
             cursor = conn_mysql.cursor()
 
             request = 'select port from users where user_id=%d' % int(data['id'])
-            print('request', request)
             cursor.execute(request)
             port = int([port for port in cursor][0][0])
-            print('port:', port)
 
             client_sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
             client_sock.bind((HOST, port))
@@ -73,3 +79,12 @@ def main():
 
 if __name__ == '__main__':
     main()
+    if __name__ == "__main__":
+    PORT = 6666
+
+    # Create the server, binding to localhost on port 9999
+    server = socketserver.TCPServer((HOST, PORT), MyTCPHandler)
+
+    # Activate the server; this will keep running until you
+    # interrupt the program with Ctrl-C
+    server.serve_forever()
