@@ -74,8 +74,6 @@ def main():
                         try:
                             print(data['message'], port, HOST)
                             great_sock.send(bytes(str(data['message']), 'UTF-8'))
-                            conn_c, addr_c = client_sock.accept()
-                            conn_c.recv(1024)
                             print('sent: ', data['message']+'\n', 'to port ', port)
                             great_sock.close()
                         except Exception as e:
@@ -84,9 +82,6 @@ def main():
             th = threading.Thread(target=do)
             th.start()
 
-            print('after sending')
-
-            print(data)
         except SocketError as e:
             print('SocketError', e)
             pass
