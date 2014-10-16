@@ -74,7 +74,7 @@ def main():
                         print('connected:', addr_c)
                         #send_message(data['message']+'\n', port)
                         try:
-
+                            time.sleep(1)
                             print(data['message'], port, HOST)
                             great_sock.send(bytes(str(data['message']), 'UTF-8'))
                             print('sent: ', data['message']+'\n', 'to port ', port)
