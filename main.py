@@ -67,6 +67,7 @@ def main():
                 while True:
                     print('while')
                     great_sock = socket.socket()
+                    great_sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
                     great_sock.connect((HOST, port))
                     conn_c, addr_c = client_sock.accept()
                     if conn_c:
@@ -87,8 +88,8 @@ def main():
         except Exception as e:
             print('except', e)
             conn.close()
-            #client_sock.close()
-            #sock.close()
+            client_sock.close()
+            sock.close()
             exit()
 
 
