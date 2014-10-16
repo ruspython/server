@@ -61,6 +61,9 @@ def main():
             cursor.execute(request)
             port = int([port for port in cursor][0][0])
 
+            client_server = socketserver.TCPServer((HOST, 10000), MyTCPHandler)
+            client_server.serve_forever()
+
             client_sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
             client_sock.bind((HOST, port))
             client_sock.listen(15)
