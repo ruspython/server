@@ -88,7 +88,8 @@ def main():
             print('after sending')
             import time
             time.sleep(1)
-            #client_sock.recv(1024)
+            hren = client_sock.recv(1024)
+            print(hren)
             print('after sending')
 
             print(data)
