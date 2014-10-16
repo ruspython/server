@@ -58,8 +58,16 @@ def main():
             client_sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
             client_sock.bind((HOST, port))
             client_sock.listen(15)
-            conn_c, addr_c = client_sock.accept()
-            client_sock.send(bytes(str(data['message']), 'UTF-8'))
+            def do():
+                while True:
+                    conn_c, addr_c = client_sock.accept()
+            def do2():
+                client_sock.send(bytes(str(data['message']), 'UTF-8'))
+
+            th = threading.Thread(target=do)
+            th.start()
+            th2 = threading.Thread(target=do2)
+            th2.start()
             print('sending...')
 
             #print(conn_c, addr_c)
