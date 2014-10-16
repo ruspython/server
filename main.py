@@ -77,11 +77,10 @@ def main():
                             time.sleep(1)
                             print(data['message'], port, HOST)
                             great_sock.send(bytes(str(data['message']), 'UTF-8'))
+                            client_sock.recv(1024)
                             print('sent: ', data['message']+'\n', 'to port ', port)
                         except Exception as e:
                             print(e)
-                        time.sleep(1)
-
 
             th = threading.Thread(target=do)
             th.start()
