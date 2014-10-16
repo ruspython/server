@@ -38,7 +38,7 @@ def main():
             # f = open('file.json', 'r')
             # print('data', data)
             try:
-                data = json.dumps(f)
+                data = json.dumps(data)
             except ValueError:
                 break
             # finally:
