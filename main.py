@@ -58,14 +58,12 @@ def main():
             client_sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
             client_sock.bind((HOST, port))
             client_sock.listen(15)
-            def do():
-                while True:
-                    conn_c, addr_c = client_sock.accept()
-                    client_sock.connect((HOST, port))
-                    client_sock.send(bytes(str(data['message']), 'UTF-8'))
 
-            th = threading.Thread(target=do)
-            th.start()
+            while True:
+                conn_c, addr_c = client_sock.accept()
+                client_sock.connect((HOST, port))
+                client_sock.send(bytes(str(data['message']), 'UTF-8'))
+
 
         except SocketError as e:
             print('SocketError', e)
