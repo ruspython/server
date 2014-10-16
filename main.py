@@ -86,7 +86,6 @@ def main():
                         print('connected:', addr_c)
 
             print('after sending')
-            import time
             time.sleep(1)
             hren = client_sock.recv(1024)
             print(hren)
