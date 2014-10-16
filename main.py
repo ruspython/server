@@ -23,10 +23,6 @@ def send_message(message, port):
     except Exception as e:
         print(e)
 
-def server_listen(server):
-        server.listen(5)
-        while 1:
-            client, address = server.accept()
 
 def main():
     print(socket.gethostname())
@@ -82,11 +78,17 @@ def main():
             send_message(data['message']+'\n', port)
             time.sleep(1)
 
-            server_listen(client_sock)
+            def do():
+                while True:
+                    print('while')
+                    conn_c, addr_c = client_sock.accept()
+                    if conn_c:
+                        print('connected:', addr_c)
 
             print('after sending')
-
-            client_sock.recv(1024)
+            import time
+            time.sleep(1)
+            #client_sock.recv(1024)
             print('after sending')
 
             print(data)
