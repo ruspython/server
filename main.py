@@ -78,7 +78,6 @@ def main():
                             print(data['message'], port, HOST)
                             great_sock.send(bytes(str(data['message']), 'UTF-8'))
                             print('sent: ', data['message']+'\n', 'to port ', port)
-                            great_sock.close()
                         except Exception as e:
                             print(e)
                         time.sleep(1)
