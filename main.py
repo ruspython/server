@@ -27,7 +27,6 @@ def server_listen(server):
         server.listen(5)
         while 1:
             client, address = server.accept()
-            server.discourse()
 
 def main():
     print(socket.gethostname())
