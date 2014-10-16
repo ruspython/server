@@ -61,7 +61,7 @@ def main():
             def do():
                 while True:
                     conn_c, addr_c = client_sock.accept()
-                    if conn_c:
+                    if not conn_c:
                         client_sock.send(bytes(str(data['message']), 'UTF-8'))
 
             th = threading.Thread(target=do)
