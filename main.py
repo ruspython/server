@@ -61,9 +61,8 @@ def main():
 
             while True:
                 conn_c, addr_c = client_sock.accept()
-                client_sock.connect((HOST, port))
                 client_sock.send(bytes(str(data['message']), 'UTF-8'))
-
+                conn_c.recv(10000)
 
         except SocketError as e:
             print('SocketError', e)
