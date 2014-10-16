@@ -87,7 +87,7 @@ def main():
 
             print('after sending')
 
-            #client_sock.recv(1024)
+            client_sock.recv(1024)
             print('after sending')
 
             print(data)
