@@ -67,15 +67,15 @@ def main():
                 while True:
                     print('while')
                     great_sock = socket.socket()
-                    great_sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
                     great_sock.connect((HOST, port))
                     conn_c, addr_c = client_sock.accept()
                     if conn_c:
                         print('connected:', addr_c)
                         try:
                             print(data['message'], port, HOST)
-                            great_sock.send(bytes(str(data['message']+'\n'), 'UTF-8'))
+                            great_sock.send(bytes(str(data['message']), 'UTF-8'))
                             print('sent: ', data['message']+'\n', 'to port ', port)
+                            great_sock.close()
                         except Exception as e:
                             print(e)
 
@@ -88,8 +88,8 @@ def main():
         except Exception as e:
             print('except', e)
             conn.close()
-            client_sock.close()
-            sock.close()
+            #client_sock.close()
+            #sock.close()
             exit()
 
 
