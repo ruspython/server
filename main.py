@@ -70,17 +70,17 @@ def main():
                 port = 10000
                 while True:
                     print('while')
-                    sock = socket.socket()
-                    sock.connect((HOST, port))
                     conn_c, addr_c = client_sock.accept()
                     if conn_c:
                         print('connected:', addr_c)
                         time.sleep(1)
                         try:
+                            port_sock = socket.socket()
+                            port_sock.connect((HOST, port))
                             print(message, port, HOST)
-                            sock.send(bytes(str(message), 'UTF-8'))
+                            port_sock.send(bytes(str(message), 'UTF-8'))
                             print('sent: ', message, 'to port ', port)
-                            sock.close()
+                            port_sock.close()
                         except Exception as e:
                             print(e)
 
