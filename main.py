@@ -88,7 +88,7 @@ def main():
                 client_sock.recv(1024)
             th = threading.Thread(target=do)
             th.start()
-            th2 = threading.Thread(target=do_other())
+            th2 = threading.Thread(target=do_other)
             th2.start()
             print('after sending')
 
