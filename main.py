@@ -72,12 +72,11 @@ def main():
                     conn_c, addr_c = client_sock.accept()
                     if conn_c:
                         print('connected:', addr_c)
-                        #send_message(data['message']+'\n', port)
                         try:
+                            print(conn_c.recv(1024))
                             time.sleep(1)
                             print(data['message'], port, HOST)
                             great_sock.send(bytes(str(data['message']), 'UTF-8'))
-                            client_sock.recv(1024)
                             print('sent: ', data['message']+'\n', 'to port ', port)
                         except Exception as e:
                             print(e)
