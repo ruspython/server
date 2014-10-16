@@ -84,12 +84,12 @@ def main():
                     conn_c, addr_c = client_sock.accept()
                     if conn_c:
                         print('connected:', addr_c)
+            def do_other():
+                client_sock.recv(1024)
             th = threading.Thread(target=do)
             th.start()
-            print('after sending')
-            time.sleep(1)
-            hren = client_sock.recv(1024)
-            print(hren)
+            th2 = threading.Thread(target= )
+            th2.start()
             print('after sending')
 
             print(data)
