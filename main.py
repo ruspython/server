@@ -31,18 +31,18 @@ def main():
             if not data:
                 break
 
-            data = data.decode('utf-8')#.replace('\'', '\"')
-            # f = open('file.json', 'w')
-            # f.write(data)
-            # f.close()
-            # f = open('file.json', 'r')
-            # print('data', data)
+            data = data.decode('utf-8').replace('\'', '\"')
+            f = open('file.json', 'w')
+            f.write(data)
+            f.close()
+            f = open('file.json', 'r')
+            print('data', data)
             try:
                 data = json.dump(data)
             except ValueError:
                 break
-            # finally:
-            #     f.close()
+            finally:
+                f.close()
             print('data:', data)
             conn_mysql = pymysql.connect(host='localhost', unix_socket='/var/run/mysqld/mysqld.sock', user='root',
                                    passwd="ajtdmw", db='messenger')
