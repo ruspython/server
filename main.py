@@ -31,7 +31,7 @@ def main():
             if not data:
                 break
 
-            data = data.decode('utf-8')#.replace('\'', '\"')
+            #data = data.decode('utf-8').replace('\'', '\"')
             # f = open('file.json', 'w')
             # f.write(data)
             # f.close()
