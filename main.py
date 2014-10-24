@@ -75,7 +75,7 @@ def main():
             client_port = int([port for port in cursor][0][0])
             print(client_port+1)
 
-            my_bytes = bytearray(data)
+            my_bytes = bytearray(data.encode())
 
             print(my_bytes)
 
