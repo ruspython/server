@@ -75,10 +75,6 @@ def main():
             client_port = int([port for port in cursor][0][0])
             print(client_port+1)
 
-            my_bytes = bytes(data, 'UTF-8')
-
-            print(my_bytes)
-
             socket_thread = MyThreads(client_port);
             #socket_thread.setDaemon(True);
             socket_thread.start();
@@ -87,7 +83,7 @@ def main():
 
             client_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             client_sock.connect((HOST, client_port))
-            client_sock.send(bytearray(my_bytes))
+            client_sock.send(bytes(data, 'UTF-8'))
 
 
         except SocketError as e:
