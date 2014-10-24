@@ -82,6 +82,7 @@ def main():
             socket_thread.start();
 
             client_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            print(client_port+1)
             client_sock.connect((HOST, client_port))
             client_sock.send(bytearray(my_bytes))
 
