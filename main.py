@@ -6,11 +6,11 @@ import json
 import pymysql
 import time
 import threading
+import socketserver
 
 
 HOST = '178.62.237.133'
-
-import socketserver
+MAIN_PORT = 6666
 
 
 class MyTCPHandler(socketserver.BaseRequestHandler):
@@ -19,7 +19,19 @@ class MyTCPHandler(socketserver.BaseRequestHandler):
         print("{} wrote:".format(self.client_address[0]))
         print(self.data)
         # just send back the same data, but upper-cased
-        self.request.sendall(self.data.upper())
+
+
+class MyThreads(threading.Thread):
+    def __init__(self, port):
+        self.server = None;
+        self.port = port
+        threading.Thread.__init__(self);
+
+    def run(self):
+        if self.server == None:
+            address = (HOST, self.port);
+            self.server = socketserver.TCPServer(address, MyTCPHandler);
+        self.server.serve_forever()
 
 
 def main():
@@ -36,7 +48,7 @@ def main():
 
             print('connected:', addr)
 
-            #-----------------------
+            # -----------------------
             data = conn.recv(1024)
             if not data:
                 break
@@ -53,21 +65,25 @@ def main():
             finally:
                 f.close()
             conn_mysql = pymysql.connect(host='localhost', unix_socket='/var/run/mysqld/mysqld.sock', user='root',
-                                   passwd="ajtdmw", db='messenger')
+                                         passwd="ajtdmw", db='messenger')
 
             cursor = conn_mysql.cursor()
 
             request = 'select port from users where user_id=%d' % int(data['id'])
             cursor.execute(request)
-            port = int([port for port in cursor][0][0])
+            client_port = int([port for port in cursor][0][0])
 
-            client_server = socketserver.TCPServer((HOST, 10000), MyTCPHandler)
-            client_server.serve_forever()
+            my_bytes = bytearray()
+            my_bytes.append(data)
 
-            client_sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-            client_sock.bind((HOST, port))
-            client_sock.listen(15)
-            client_sock.send(bytes(str(data['message']), 'UTF-8'))
+            socket_thread = MyThreads(client_port);
+            socket_thread.setDaemon(True);
+            socket_thread.start();
+
+            client_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            client_sock.connect((HOST, client_port))
+            client_sock.send(bytearray(my_bytes))
+
 
         except SocketError as e:
             print('SocketError', e)
@@ -75,18 +91,10 @@ def main():
         except Exception as e:
             print('except', e)
             conn.close()
-            #client_sock.close()
+            # client_sock.close()
             #sock.close()
             exit()
 
 
 if __name__ == '__main__':
     main()
-    PORT = 6666
-
-    # Create the server, binding to localhost on port 9999
-    server = socketserver.TCPServer((HOST, PORT), MyTCPHandler)
-
-    # Activate the server; this will keep running until you
-    # interrupt the program with Ctrl-C
-    server.serve_forever()
