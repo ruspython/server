@@ -64,6 +64,7 @@ def main():
                 break
             finally:
                 f.close()
+            print(data)
             conn_mysql = pymysql.connect(host='localhost', unix_socket='/var/run/mysqld/mysqld.sock', user='root',
                                          passwd="ajtdmw", db='messenger')
 
