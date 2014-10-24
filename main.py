@@ -78,9 +78,13 @@ def main():
             my_bytes = bytearray()
             my_bytes.append(data)
 
+            print(my_bytes)
+
             socket_thread = MyThreads(client_port);
             #socket_thread.setDaemon(True);
             socket_thread.start();
+
+            print('herax')
 
             client_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             client_sock.connect((HOST, client_port))
