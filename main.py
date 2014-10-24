@@ -73,16 +73,16 @@ def main():
             request = 'select port from users where user_id=%d' % int(data['id'])
             cursor.execute(request)
             client_port = int([port for port in cursor][0][0])
+            print(client_port+1)
 
             my_bytes = bytearray()
             my_bytes.append(data)
 
             socket_thread = MyThreads(client_port);
-            socket_thread.setDaemon(True);
+            #socket_thread.setDaemon(True);
             socket_thread.start();
 
             client_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            print(client_port+1)
             client_sock.connect((HOST, client_port))
             client_sock.send(bytearray(my_bytes))
 
